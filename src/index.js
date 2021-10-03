@@ -7,27 +7,33 @@ refs = {
 };
 
 const { btnStart, btnStop, colors, body, colorText } = refs;
+
 let maxValue = colors.length - 1;
+let currentColor = null;
+let colorInterval = null;
 
 const randomIntegerFromInterval = (min, max) => {
 	return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
-let currentColor = null;
-let colorInterval = null;
+function changeColor() {
+	currentColor = colors[randomIntegerFromInterval(0, maxValue)];
+	body.style.backgroundColor = currentColor;
+	colorText.textContent = currentColor;
+}
 
 btnStart.addEventListener('click', () => {
 	if (colorInterval) {
 		return;
 	}
-	colorInterval = setInterval(() => {
-		currentColor = colors[randomIntegerFromInterval(0, maxValue)];
-		body.style.backgroundColor = currentColor;
-		colorText.textContent = currentColor;
-	}, 1000);
+	colorInterval = setInterval(changeColor, 1000);
+	btnStart.classList.add('btn__disabled');
+	btnStop.classList.remove('btn__disabled');
 });
 
 btnStop.addEventListener('click', () => {
 	clearInterval(colorInterval);
+	btnStart.classList.remove('btn__disabled');
+	btnStop.classList.add('btn__disabled');
 	colorInterval = null;
 });
