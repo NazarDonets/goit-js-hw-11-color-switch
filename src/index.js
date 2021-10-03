@@ -27,13 +27,13 @@ btnStart.addEventListener('click', () => {
 		return;
 	}
 	colorInterval = setInterval(changeColor, 1000);
-	btnStart.classList.add('btn__disabled');
-	btnStop.classList.remove('btn__disabled');
+	btnStart.classList.toggle('btn__disabled');
+	btnStop.classList.toggle('btn__disabled');
 });
 
 btnStop.addEventListener('click', () => {
 	clearInterval(colorInterval);
-	btnStart.classList.remove('btn__disabled');
-	btnStop.classList.add('btn__disabled');
+	btnStart.classList.toggle('btn__disabled');
+	btnStop.classList.toggle('btn__disabled');
 	colorInterval = null;
 });
